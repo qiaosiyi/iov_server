@@ -13,11 +13,16 @@ class vehicle_status(rpc_server):
 		super(vehicle_status, self).__init__(username, passwd, hostip, queuename)
 
 	def do_something(self, response):
-		print response
+		
 		response = eval(response)
 		if response['tag'] == 1:
-			#sensor data
 			print response
+			#sensor data
+			payload = {"result":response['result'], "vid":response['vid'], "tag":1}
+			print "payload:",payload
+			r = requests.post(url , data=payload)
+			print "r.text:",r.text
+			
 
 		elif response['tag'] == 2:
 			#person not found
@@ -29,18 +34,19 @@ class vehicle_status(rpc_server):
 			fw.close()
 			filepath = "DriverNotFound/" + str(response['vid']) + "_" + response['filename']
 			payload = {"filepath":filepath, "vid":response['vid'], "tag":2, "time":response['time']}
-			print payload
+			print "payload:",payload
 			r = requests.post(url , data=payload)
-			print r.text
+			print "r.text:",r.text
 			
 
 		elif response['tag'] == 3:
+			print response
 			#face recognize result
 			print "face recognize result"
 			payload = {"did":response['did'], "vid":response['vid'], "tag":3, "time":response['time']}
+			print "payload:",payload
 			r = requests.post(url , data=payload)
-			print payload
-			print r.text
+			print "r.text:",r.text
 			
 
 		elif response['tag'] == 4:
@@ -52,12 +58,13 @@ class vehicle_status(rpc_server):
 			fw.close()
 			filepath = "fatigue_image/" + str(response['vid']) + "_" + response['filename']
 			payload = {"fatiuge":response['fatigue'], "filepath":filepath ,"vid":response['vid'], "tag":4, "time":response['time']}
+			print "payload:",payload
 			r = requests.post(url , data=payload)
-			print payload
-			print r.text
+			print "r.text:",r.text
 			
 						
 		elif response['tag'] == 5:
+			print response
 			#road detect
 			print 'road detect'
 
