@@ -3,7 +3,8 @@
 from rabbitMQ.rpc_server import rpc_server
 import json
 import requests
-
+#url = "http://httpbin.org/post"
+url = "http://www.tangjs.cn:9999/api/v1/sensor/sync"
 class vehicle_status(rpc_server):
 	"""docstring for vehicle_status"""
 	def __init__(self, username, passwd, hostip, queuename):
@@ -15,8 +16,7 @@ class vehicle_status(rpc_server):
                 payload = {"result":"ad", "vid":100001, "tag":1}
                 payload['result'] = response['result']
                 payload['vid'] = response['vid']
-                #url = "http://httpbin.org/post"
-                url = "http://www.tangjs.cn:9999/api/v1/sensor/sync"
+                
                 r = requests.post(url , data=response)
                 print r.text
 
