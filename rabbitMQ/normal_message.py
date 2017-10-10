@@ -4,7 +4,7 @@ from rpc_server import rpc_server
 import requests
 import json
 
-basedir = "/var/www/yinspect-iov/storage/app/drivers/"
+basedir = "/var/www/iov-apis/yinspect-iov/storage/app/drivers/"
 url = "http://www.tangjs.cn:9999/api/v1/sensor/sync"
 
 class vehicle_status(rpc_server):
@@ -16,12 +16,13 @@ class vehicle_status(rpc_server):
 		
 		response = eval(response)
 		if response['tag'] == 1:
-			print response
+#			print response
 			#sensor data
 			payload = {"result":response['result'], "vid":response['vid'], "tag":1}
 			print "payload:",payload
 			r = requests.post(url , data=payload)
 			print "r.text:",r.text
+			print
 			
 
 		elif response['tag'] == 2:
