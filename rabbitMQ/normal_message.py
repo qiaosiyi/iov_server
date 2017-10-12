@@ -58,7 +58,7 @@ class vehicle_status(rpc_server):
 				fw.write(response['file'])
 				fw.close()
 				filepath = "fatigue_image/" + str(response['vid']) + "_" + response['filename']
-				payload = {"fatiuge":response['fatigue'], "filepath":filepath ,"vid":response['vid'], "tag":4, "time":response['time']}
+				payload = {"fatigue":response['fatigue'], "filepath":filepath ,"vid":response['vid'], "tag":4, "time":response['time']}
 				print "payload:",payload
 				r = requests.post(url , data=payload)
 				print "r.text:",r.text
